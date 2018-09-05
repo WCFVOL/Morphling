@@ -1,4 +1,4 @@
-package com.wcfvol.simplerpc.bean;
+package com.wcfvol.rpcserver.bean;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
