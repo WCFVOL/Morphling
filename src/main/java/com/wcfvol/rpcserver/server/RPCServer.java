@@ -5,15 +5,11 @@ import com.wcfvol.rpcserver.bean.RPCResponse;
 import com.wcfvol.rpcserver.codec.RPCDecoder;
 import com.wcfvol.rpcserver.codec.RPCEncoder;
 import com.wcfvol.rpcserver.registry.ServiceRegistry;
-import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -21,7 +17,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -43,8 +38,9 @@ public class RPCServer implements ApplicationContextAware, InitializingBean {
 
     public void afterPropertiesSet() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
+        EventLoopGroup work = new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();
-        bootstrap.group(group)
+        bootstrap.group(group,work)
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
@@ -58,8 +54,16 @@ public class RPCServer implements ApplicationContextAware, InitializingBean {
         String[] address = serverAddress.split(":");
         String ip = address[0];
         int port = Integer.parseInt(address[1]);
-        bootstrap.bind(ip,port).sync();
-
+        ChannelFuture f= bootstrap.bind(ip,port).sync();
+        // 注册服务到ZK
+        if (null != serviceRegistry) {
+            for (String className : beans.keySet()) {
+                serviceRegistry.registry(className,serverAddress);
+            }
+        }
+        f.channel().closeFuture().sync();
+        group.shutdownGracefully().sync();
+        work.shutdownGracefully().sync();
     }
 
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
@@ -67,7 +71,7 @@ public class RPCServer implements ApplicationContextAware, InitializingBean {
         if (!CollectionUtils.isEmpty(beanMap)) {
             for (Object bean:beanMap.values()) {
                 RPCService rpcService = bean.getClass().getAnnotation(RPCService.class);
-                String serviceName = rpcService.value().getName();
+                String serviceName = rpcService.value().getSimpleName();
                 String version = rpcService.version();
                 if (StringUtils.isNotBlank(version)) {
                     serviceName+="-"+version;
