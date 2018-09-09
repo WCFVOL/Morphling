@@ -6,11 +6,11 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @ClassName RPCServerHandler
@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date 2018/9/7 下午4:30
  **/
 public class RPCServerHandler extends SimpleChannelInboundHandler<RPCRequest> {
+    private final static Logger LOG = Logger.getLogger(RPCServerHandler.class);
     private final Map<String,Object> beans ;
 
     public RPCServerHandler(Map beans) {
@@ -26,6 +27,7 @@ public class RPCServerHandler extends SimpleChannelInboundHandler<RPCRequest> {
 
     @Override
     protected void messageReceived(ChannelHandlerContext context, RPCRequest request) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        LOG.info("request: interface="+request.getInterfaceName()+"|| methodName="+request.getMethodName());
         RPCResponse response = new RPCResponse();
         response.setRequestId(request.getRequestId());
         response.setResult(this.handle(request));
@@ -49,9 +51,8 @@ public class RPCServerHandler extends SimpleChannelInboundHandler<RPCRequest> {
         Object[] parameters = request.getParameters();
         Method method = serviceClass.getMethod(methodName,parameterTypes);
         method.setAccessible(true);
-        Object ans = null;
-        ans = method.invoke(serverBean,parameters);
-        return ans;
+        LOG.info("run: interface="+request.getInterfaceName()+"|| methodName="+request.getMethodName()+" success!");
+        return method.invoke(serverBean,parameters);
     }
 
     @Override

@@ -10,6 +10,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RPCServer implements ApplicationContextAware, InitializingBean {
+    private final static Logger LOG = Logger.getLogger(RPCServer.class);
 
     private String serverAddress;
     private ServiceRegistry serviceRegistry;
@@ -36,6 +38,7 @@ public class RPCServer implements ApplicationContextAware, InitializingBean {
         this.serviceRegistry = serviceRegistry;
     }
 
+    @Override
     public void afterPropertiesSet() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         EventLoopGroup work = new NioEventLoopGroup();
@@ -66,6 +69,7 @@ public class RPCServer implements ApplicationContextAware, InitializingBean {
         work.shutdownGracefully().sync();
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         Map<String,Object> beanMap = ctx.getBeansWithAnnotation(RPCService.class);
         if (!CollectionUtils.isEmpty(beanMap)) {
@@ -76,6 +80,7 @@ public class RPCServer implements ApplicationContextAware, InitializingBean {
                 if (StringUtils.isNotBlank(version)){
                     serviceName+="-"+version;
                 }
+                LOG.info("get service bean: [ "+serviceName+" ]");
                 beans.put(serviceName,bean);
             }
         }
