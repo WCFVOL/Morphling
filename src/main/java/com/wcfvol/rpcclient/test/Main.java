@@ -17,6 +17,5 @@ public class Main {
 
         Util util = proxy.create(Util.class,"com.wcfvol.rpcserver");
         System.out.println(util.getTime());
-
     }
 }
