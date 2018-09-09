@@ -5,7 +5,7 @@
 通过 ZooKeeper 实现服务注册与发现<br>
 Spring实现Ioc <br>
 Netty 异步通信<br>
-PB格式序列化对象
+PB格式序列化对象<br>
 随机负载均衡
 
 ## Server
