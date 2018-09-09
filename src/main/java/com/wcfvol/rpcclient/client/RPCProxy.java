@@ -33,43 +33,40 @@ public class RPCProxy {
         return (T)Proxy.newProxyInstance(
                 interfaceName.getClassLoader(),
                 new Class<?>[]{interfaceName},
-                new InvocationHandler() {
-                    @Override
-                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        RPCRequest request = new RPCRequest(
-                                UUID.randomUUID().toString(),
-                                method.getDeclaringClass().getSimpleName(),
-                                serviceVersion,
-                                method.getName(),
-                                method.getParameterTypes(),
-                                args
-                        );
-                        System.out.println("request:"+request);
-                        if (null != serviceDiscovery) {
-                            String serviceName = interfaceName.getSimpleName();
-                            if (StringUtils.isNotBlank(serviceVersion)) {
-                                serviceName+="-"+serviceVersion;
-                            }
-                            serviceAddress = serviceDiscovery.discover(serviceName);
+                (proxy, method, args) -> {
+                    RPCRequest request = new RPCRequest(
+                            UUID.randomUUID().toString(),
+                            method.getDeclaringClass().getSimpleName(),
+                            serviceVersion,
+                            method.getName(),
+                            method.getParameterTypes(),
+                            args
+                    );
+                    System.out.println("request:"+request);
+                    if (null != serviceDiscovery) {
+                        String serviceName = interfaceName.getSimpleName();
+                        if (StringUtils.isNotBlank(serviceVersion)) {
+                            serviceName+="-"+serviceVersion;
                         }
-                        if (StringUtils.isEmpty(serviceAddress)){
-                            throw new RuntimeException("server address is empty");
-                        }
-                        String[] addressArray = serviceAddress.split(":");
-                        String host = addressArray[0];
-                        int port = Integer.parseInt(addressArray[1]);
-                        RPCClient rpcClient = new RPCClient(host,port);
-                        long time = System.currentTimeMillis();
-                        RPCResponse response = rpcClient.send(request);
-                        if (null == response) {
-                            throw new RuntimeException("response is null");
-                        }
-                        LOG.info("Request:"+request.toString()+";Response:"+response.toString()+";execu time[" + (System.currentTimeMillis()-time) +"] ms.");
-                        if (response.hasException()) {
-                            throw response.getException();
-                        }
-                        return response.getResult();
+                        serviceAddress = serviceDiscovery.discover(serviceName);
                     }
+                    if (StringUtils.isEmpty(serviceAddress)){
+                        throw new RuntimeException("server address is empty");
+                    }
+                    String[] addressArray = serviceAddress.split(":");
+                    String host = addressArray[0];
+                    int port = Integer.parseInt(addressArray[1]);
+                    RPCClient rpcClient = new RPCClient(host,port);
+                    long time = System.currentTimeMillis();
+                    RPCResponse response = rpcClient.send(request);
+                    if (null == response) {
+                        throw new RuntimeException("response is null");
+                    }
+                    LOG.info("Request:"+request.toString()+";Response:"+response.toString()+";execu time[" + (System.currentTimeMillis()-time) +"] ms.");
+                    if (response.hasException()) {
+                        throw response.getException();
+                    }
+                    return response.getResult();
                 }
         );
     }

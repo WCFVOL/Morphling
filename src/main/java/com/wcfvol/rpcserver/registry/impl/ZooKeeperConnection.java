@@ -16,6 +16,7 @@ public class ZooKeeperConnection {
         ZooKeeper zk = null;
         try {
             zk = new ZooKeeper(address, ZookeeperConstants.ZK_SESSION_TIMEOUT, new Watcher() {
+                @Override
                 public void process(WatchedEvent event) {
                     if (event.getState() == Event.KeeperState.SyncConnected) {
                         latch.countDown();

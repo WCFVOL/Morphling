@@ -19,6 +19,7 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     public ServiceRegistryImpl(String zkAddress) {
         this.zk = ZooKeeperConnection.connectServer(zkAddress);
     }
+    @Override
     public void registry(String serviceName, String serviceAddress) {
         String root = ZookeeperConstants.ZK_ROOT_REGISTRY_ZNODE_PATH;
         try {

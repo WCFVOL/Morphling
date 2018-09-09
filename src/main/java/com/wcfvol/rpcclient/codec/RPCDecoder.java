@@ -17,7 +17,6 @@ public class RPCDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        // TODO
         if (in.readableBytes() < 4) {
             return;
         }

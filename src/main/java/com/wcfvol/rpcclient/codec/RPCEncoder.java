@@ -14,7 +14,6 @@ public class RPCEncoder extends MessageToByteEncoder {
 
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Object o, ByteBuf out) throws Exception {
-        //todo
         if (genericClass.isInstance(o)) {
             byte[] data = SerializationUtil.serialize(o);
             out.writeInt(data.length);

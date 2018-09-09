@@ -45,7 +45,6 @@ public class SerializationUtil {
             ProtostuffIOUtil.mergeFrom(data, message, schema);
             return message;
         } catch (Exception e) {
-            System.out.println(e.getCause());
             throw new IllegalStateException(e.getMessage(), e);
         }
     }
