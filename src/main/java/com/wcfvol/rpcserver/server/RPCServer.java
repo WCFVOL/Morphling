@@ -73,7 +73,7 @@ public class RPCServer implements ApplicationContextAware, InitializingBean {
                 RPCService rpcService = bean.getClass().getAnnotation(RPCService.class);
                 String serviceName = rpcService.value().getSimpleName();
                 String version = rpcService.version();
-                if (StringUtils.isNotBlank(version)) {
+                if (StringUtils.isNotBlank(version)){
                     serviceName+="-"+version;
                 }
                 beans.put(serviceName,bean);

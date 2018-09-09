@@ -1,4 +1,4 @@
-package com.wcfvol.rpcserver.bean;
+package com.wcfvol.rpcclient.bean;
 
 import lombok.Data;
 
@@ -24,8 +24,8 @@ public class RPCRequest {
     }
 
     public RPCRequest(String requestID, String className,
-                       String serviceVersion, String methodName,
-                       Class<?>[] parameterTypes, Object[] parameters) {
+                      String serviceVersion, String methodName,
+                      Class<?>[] parameterTypes, Object[] parameters) {
         this.requestId = requestID;
         this.interfaceName = className;
         this.serviceVersion = serviceVersion;
@@ -34,9 +34,10 @@ public class RPCRequest {
         this.parameters = parameters;
     }
 
-    public RPCRequest build(String requestID, String className,
-                 String serviceVersion, String methodName,
-                 Class<?>[] parameterTypes, Object[] parameters){
+    public RPCRequest create(String requestID, String className,
+                             String serviceVersion, String methodName,
+                             Class<?>[] parameterTypes, Object[] parameters){
         return new RPCRequest(requestID,className,serviceVersion,methodName,parameterTypes,parameters);
     }
+
 }
