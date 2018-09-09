@@ -6,6 +6,7 @@
 Spring实现Ioc <br>
 Netty 异步通信<br>
 PB格式序列化对象
+随机负载均衡
 
 ## Server
 
