@@ -28,6 +28,7 @@ public class RPCProxy {
         return create(interfaceName,"");
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T create(final Class<?> interfaceName,final String serviceVersion) {
         return (T)Proxy.newProxyInstance(
                 interfaceName.getClassLoader(),
@@ -59,10 +60,10 @@ public class RPCProxy {
                         RPCClient rpcClient = new RPCClient(host,port);
                         long time = System.currentTimeMillis();
                         RPCResponse response = rpcClient.send(request);
-                        LOG.info("Request:"+request.toString()+";Response:"+response.toString()+";execu time[" + (System.currentTimeMillis()-time) +"] ms.");
                         if (null == response) {
                             throw new RuntimeException("response is null");
                         }
+                        LOG.info("Request:"+request.toString()+";Response:"+response.toString()+";execu time[" + (System.currentTimeMillis()-time) +"] ms.");
                         if (response.hasException()) {
                             throw response.getException();
                         }
