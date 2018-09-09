@@ -3,16 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <context:component-scan base-package="com.wcfvol.rpcserver"/>
-
-    <context:property-placeholder location="rpc.properties"/>
-
-    <bean id="serviceRegistry" class="com.wcfvol.rpcserver.registry.impl.ServiceRegistryImpl">
+    <context:property-placeholder location="classpath:rpc.properties" />
+    <bean id="serviceDiscovery" class="com.wcfvol.rpcclient.discovery.impl.ServiceDiscoveryImpl">
         <constructor-arg name="zkAddress" value="${rpc.registry_address}"/>
     </bean>
-
-    <bean id="rpcServer" class="com.wcfvol.rpcserver.server.RPCServer">
-        <constructor-arg name="serverAddress" value="${rpc.service_address}"/>
-        <constructor-arg name="serviceRegistry" ref="serviceRegistry"/>
+    <bean id="rpcProxy" class="com.wcfvol.rpcclient.client.RPCProxy">
+        <constructor-arg name="serviceDiscovery" ref="serviceDiscovery"/>
     </bean>
 </beans>

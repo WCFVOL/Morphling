@@ -1,6 +1,6 @@
-package com.wcfvol.rpcclient.Discovery.impl;
+package com.wcfvol.rpcclient.discovery.impl;
 
-import com.wcfvol.rpcclient.Discovery.ServiceDiscovery;
+import com.wcfvol.rpcclient.discovery.ServiceDiscovery;
 import com.wcfvol.rpcclient.common.constants.ZookeeperConstants;
 import com.wcfvol.rpcserver.registry.impl.ZooKeeperConnection;
 import io.netty.util.internal.ThreadLocalRandom;
@@ -74,6 +74,7 @@ public class ServiceDiscoveryImpl extends ZooKeeperConnection implements Service
             }
             servers.put(serviceNamePath,tmpAddress);
         }
+        System.out.println(servers);
         ServiceDiscoveryImpl.servers=servers;
         LOG.info("servers:"+servers.toString());
     }

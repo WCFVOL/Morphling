@@ -1,6 +1,6 @@
 package com.wcfvol.rpcclient.client;
 
-import com.wcfvol.rpcclient.Discovery.ServiceDiscovery;
+import com.wcfvol.rpcclient.discovery.ServiceDiscovery;
 import com.wcfvol.rpcclient.bean.RPCRequest;
 import com.wcfvol.rpcclient.bean.RPCResponse;
 import org.apache.commons.lang.StringUtils;
@@ -38,12 +38,13 @@ public class RPCProxy {
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                         RPCRequest request = new RPCRequest(
                                 UUID.randomUUID().toString(),
-                                method.getDeclaringClass().getName(),
+                                method.getDeclaringClass().getSimpleName(),
                                 serviceVersion,
                                 method.getName(),
                                 method.getParameterTypes(),
                                 args
                         );
+                        System.out.println("request:"+request);
                         if (null != serviceDiscovery) {
                             String serviceName = interfaceName.getSimpleName();
                             if (StringUtils.isNotBlank(serviceVersion)) {

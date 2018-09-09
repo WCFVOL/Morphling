@@ -1,4 +1,4 @@
-package com.wcfvol.rpcclient.Discovery;
+package com.wcfvol.rpcclient.discovery;
 
 /**
  * @ClassName ServiceDiscovery

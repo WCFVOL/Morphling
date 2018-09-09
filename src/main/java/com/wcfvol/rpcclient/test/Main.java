@@ -1,5 +1,10 @@
 package com.wcfvol.rpcclient.test;
 
+import com.wcfvol.rpcclient.client.RPCClient;
+import com.wcfvol.rpcclient.client.RPCProxy;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 /**
  * @ClassName Main
  * @Author Wang Chunfei
@@ -7,6 +12,11 @@ package com.wcfvol.rpcclient.test;
  **/
 public class Main {
     public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("client.xml");
+        RPCProxy proxy = context.getBean(RPCProxy.class);
+
+        Util util = proxy.create(Util.class,"com.wcfvol.rpcserver");
+        System.out.println(util.getTime());
 
     }
 }
