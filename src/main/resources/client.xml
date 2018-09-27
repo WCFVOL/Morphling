@@ -4,10 +4,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder location="classpath:rpc.properties" />
-    <bean id="serviceDiscovery" class="com.wcfvol.rpcclient.discovery.impl.ServiceDiscoveryImpl">
+    <bean id="serviceDiscovery" class="com.wcfvol.rpc.rpcclient.discovery.impl.ServiceDiscoveryImpl">
         <constructor-arg name="zkAddress" value="${rpc.registry_address}"/>
     </bean>
-    <bean id="rpcProxy" class="com.wcfvol.rpcclient.client.RPCProxy">
+    <bean id="rpcProxy" class="com.wcfvol.rpc.rpcclient.client.RPCProxy">
         <constructor-arg name="serviceDiscovery" ref="serviceDiscovery"/>
     </bean>
 </beans>
