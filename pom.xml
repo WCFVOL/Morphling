@@ -23,6 +23,7 @@
     <modules>
         <module>MorphlingServer</module>
         <module>MorphlingClient</module>
+        <module>Monitoring</module>
     </modules>
     <dependencies>
         <dependency>
