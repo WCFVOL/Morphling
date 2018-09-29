@@ -22,8 +22,7 @@
     </build>
     <modules>
         <module>MorphlingServer</module>
-        <module>MprphlingClient</module>
-        <module>MorphlingMonitoring</module>
+        <module>MorphlingClient</module>
     </modules>
     <dependencies>
         <dependency>
