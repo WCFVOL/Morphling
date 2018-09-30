@@ -12,10 +12,14 @@
 - @RPCService 用来注解一个要被注册的Server
 - 参数包括value和version
 
-##Client
+## Client
 
 - 通过context获取RPCProxy
 - RPCProxy.create() 创建代理对象
+
+## ZK目录结构
+
+/Morphling/serviceName/address[serviceAddress]
 
 ## TODO
 

@@ -18,7 +18,7 @@ import java.util.Properties;
  * @Author Wang Chunfei
  * @Date 2018/9/29 下午5:11
  **/
-@RPCService(value = ServerInfo.class, version = "con.wcfvol.morphling.monitoring")
+@RPCService(value = ServerInfo.class, version = "monitoring")
 public class ServerInfoImpl implements ServerInfo {
     private final static Logger log = Logger.getLogger(ServerInfoImpl.class);
 
