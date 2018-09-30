@@ -1,4 +1,4 @@
-package com.wcfvol.morphling.monitoring;
+package com.wcfvol.morphling;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

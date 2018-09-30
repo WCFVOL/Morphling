@@ -1,4 +1,4 @@
-package com.wcfvol.morphling.rpcserver.test;
+package com.wcfvol.morphling.rpcserver;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

@@ -1,6 +1,7 @@
-package com.wcfvol.morphling.rpcclient.test;
+package com.wcfvol.morphling.rpcclient;
 
 import com.wcfvol.morphling.rpcclient.client.RPCProxy;
+import com.wcfvol.morphling.rpcclient.test.Util;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
