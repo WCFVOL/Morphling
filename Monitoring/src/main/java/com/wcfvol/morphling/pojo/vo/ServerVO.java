@@ -12,5 +12,7 @@ public class ServerVO {
     private String fullName;
     private String serverName;
     private String version;
-    private List<String> ip;
+    private List<String> url;
+    private List<Integer> allCall;
+    private List<Integer> successCall;
 }

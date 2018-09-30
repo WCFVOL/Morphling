@@ -10,4 +10,5 @@ import java.util.List;
 public interface ServerStatService {
     List<ServerVO> listServers();
     List<ServerVO> getMonitors();
+
 }

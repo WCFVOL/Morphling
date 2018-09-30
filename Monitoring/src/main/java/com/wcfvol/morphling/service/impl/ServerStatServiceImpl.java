@@ -26,7 +26,7 @@ public class ServerStatServiceImpl implements ServerStatService {
         for (String key:servers.keySet() ) {
             ServerVO serverVO = new ServerVO();
             serverVO.setFullName(key);
-            serverVO.setIp(servers.get(key));
+            serverVO.setUrl(servers.get(key));
             String[] serverFullName = key.split("-");
             serverVO.setServerName(serverFullName[0]);
             serverVO.setVersion(serverFullName[1]);
@@ -42,7 +42,7 @@ public class ServerStatServiceImpl implements ServerStatService {
         for (String key:servers.keySet() ) {
             ServerVO serverVO = new ServerVO();
             serverVO.setFullName(key);
-            serverVO.setIp(servers.get(key));
+            serverVO.setUrl(servers.get(key));
             String[] serverFullName = key.split("-");
             serverVO.setServerName(serverFullName[0]);
             serverVO.setVersion(serverFullName[1]);
