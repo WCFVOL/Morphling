@@ -1,9 +1,39 @@
 <template>
-    <el-row>
-        <el-col :span="8"><div class="grid-content bg-purple">1</div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light">2</div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple">3</div></el-col>
-    </el-row>
+    <div class="main">
+        <img src="../assets/morphling.jpeg" style="width:100%">
+        <el-row class="tac">
+          <el-col :span="12" style="width:100%;margin-top:0px;">
+            <el-menu
+              default-active="2"
+              class="el-menu-vertical-demo"
+              :router=true
+              background-color="RGB(38,100,130)"
+              active-text-color="#ffd04b"
+              text-color="RGB(217,155,125)">
+              <el-menu-item index="1" route="/"> 
+                  <i class="el-icon-menu"></i>
+                  <span slot="title">概览</span>
+              </el-menu-item>
+              <el-menu-item index="2" >
+                  <i class="el-icon-menu"></i>
+                  <span slot="title">服务状态</span>
+              </el-menu-item>
+              <el-menu-item index="3">
+                  <i class="el-icon-menu"></i>
+                  <span slot="title">节点状态</span>
+              </el-menu-item>
+              <el-menu-item index="4">
+                  <i class="el-icon-menu"></i>
+                  <span slot="title">日志</span>
+              </el-menu-item>
+              <el-menu-item index="5" route="about">
+                  <i class="el-icon-menu"></i>
+                  <span slot="title">关于</span>
+              </el-menu-item>
+            </el-menu>
+          </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script>
@@ -13,7 +43,20 @@ export default {
 </script>
 
 <style lang="scss">
+  .el-menu-item{
+    text-align:left;
+  }
+  .main{
+    background-color: RGB(110,159,186);
+    margin-bottom: 0%;
+    height: 100%;
+    background-size: 100%;
+    background-position: top left;
+    background-position: 0px 0px;
+    background-position: 100% 100%;
+  }
   .el-row {
+    margin-top: 0%;
     margin-bottom: 20px;
     &:last-child {
       margin-bottom: 0;
@@ -38,6 +81,9 @@ export default {
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+  .tac {
+    float: top;
   }
 </style>
 
