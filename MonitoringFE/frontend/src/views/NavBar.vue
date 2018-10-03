@@ -4,7 +4,6 @@
         <el-row class="tac">
           <el-col :span="12" style="width:100%;margin-top:0px;">
             <el-menu
-              default-active="2"
               class="el-menu-vertical-demo"
               :router=true
               background-color="RGB(38,100,130)"
@@ -15,19 +14,19 @@
                   <span slot="title">概览</span>
               </el-menu-item>
               <el-menu-item index="2" >
-                  <i class="el-icon-menu"></i>
+                  <i class="el-icon-location"></i>
                   <span slot="title">服务状态</span>
               </el-menu-item>
               <el-menu-item index="3">
-                  <i class="el-icon-menu"></i>
+                  <i class="el-icon-share"></i>
                   <span slot="title">节点状态</span>
               </el-menu-item>
               <el-menu-item index="4">
-                  <i class="el-icon-menu"></i>
+                  <i class="el-icon-document"></i>
                   <span slot="title">日志</span>
               </el-menu-item>
               <el-menu-item index="5" route="about">
-                  <i class="el-icon-menu"></i>
+                  <i class="el-icon-info"></i>
                   <span slot="title">关于</span>
               </el-menu-item>
             </el-menu>

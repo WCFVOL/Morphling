@@ -26,19 +26,19 @@ export default {
 </script>
 
 <style>
-html,body {
-    width: 100%;
+  html,body {
+      width: 100%;
+      height: 100%;
+  }
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 0px;
     height: 100%;
-}
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 0px;
-  height: 100%;
-}
+  }
  .el-aside {
     box-shadow: 0px 10px 5px 5px #0d55db;
     background-color: #D3DCE6;
@@ -50,11 +50,16 @@ html,body {
     .el-main {
     background-color: #E9EEF3;
     color: #333;
-    text-align: center;
-    line-height: 160px;
   }
   .el-container {
     height: 100%;
   }
+    .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+  
 </style>
 
